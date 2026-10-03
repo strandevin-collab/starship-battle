@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Starfleet Tactical: Bird of War Incursion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- Star Trek LCARS-style Header HUD -->
+    <header class="lcars-header">
+      <div class="lcars-bar lcars-accent-orange"></div>
+      <div class="lcars-bar lcars-accent-purple"></div>
+      <div class="hud-stats">
+        <div class="hud-item">
+          <span class="hud-label">SECTOR</span>
+          <span class="hud-value" id="hud-sector">01</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">SCORE</span>
+          <span class="hud-value" id="hud-score">00000</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">LIVES</span>
+          <span class="hud-value lives-val" id="hud-lives">10</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">SHIELDS</span>
+          <div class="shield-bar-outer">
+            <div class="shield-bar-inner" id="hud-shield-bar"></div>
+          </div>
+          <span class="hud-value shield-pct" id="hud-shield-text">100%</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">TORPEDOES</span>
+          <span class="hud-value" id="hud-torpedoes">3</span>
+        </div>
+      </div>
+      <button id="sound-btn" class="lcars-pill-btn" aria-label="Toggle Sound">🔊 AUDIO</button>
+    </header>
+
+    <!-- Main Game Canvas -->
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="480" height="640"></canvas>
+
+      <!-- 5-Second Tactical Countdown Overlay -->
+      <div id="countdown-overlay" class="countdown-overlay hidden">
+        <div class="countdown-sub">RED ALERT // PREPARING WEAPONS</div>
+        <div class="countdown-number" id="countdown-number">5</div>
+        <div class="countdown-status">ENGAGING IN SECONDS</div>
+      </div>
+
+      <!-- Overlay for Start / Game Over / Wave Victory -->
+      <div id="game-overlay" class="overlay">
+        <div class="overlay-card">
+          <div class="lcars-elbow"></div>
+          <h1 id="overlay-title">STARFLEET TACTICAL</h1>
+          <p id="overlay-subtitle">KLINGON ARMADA DETECTED IN SECTOR 001</p>
+          <div class="overlay-stats" id="overlay-stats"></div>
+          <button id="start-btn" class="lcars-main-btn">ENGAGE MISSION</button>
+          <div class="instructions-card">
+            <p><strong>Controls:</strong></p>
+            <p>📱 <strong>Mobile:</strong> Use the buttons below or drag your ship directly.</p>
+            <p>⌨️ <strong>Desktop:</strong> Left / Right arrow keys (or A / D), [Spacebar] to fire phasers, [T] to launch photon torpedo.</p>
+            <div class="mobile-qr-section">
+              <p>📷 <strong>Scan with Phone to Play:</strong></p>
+              <img src="qrcode.png" alt="Scan to play on phone" class="qr-image">
+              <p class="qr-sub">Or visit on phone: <code>http://192.168.4.141:8080</code></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile-Friendly Tactical Touch Controls -->
+    <footer class="tactical-console">
+      <div class="nav-controls">
+        <button id="btn-left" class="console-btn btn-nav" aria-label="Move Left">◀</button>
+        <button id="btn-right" class="console-btn btn-nav" aria-label="Move Right">▶</button>
+      </div>
+      <div class="weapon-controls">
+        <button id="btn-torpedo" class="console-btn btn-torpedo" aria-label="Launch Torpedo">
+          <span>TORPEDO</span>
+          <small id="btn-torpedo-count">(3)</small>
+        </button>
+        <button id="btn-fire" class="console-btn btn-fire" aria-label="Fire Phasers">
+          <span>FIRE PHASERS</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
