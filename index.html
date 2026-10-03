@@ -14,8 +14,12 @@
       <div class="lcars-bar lcars-accent-purple"></div>
       <div class="hud-stats">
         <div class="hud-item">
-          <span class="hud-label">SECTOR</span>
-          <span class="hud-value" id="hud-sector">01</span>
+          <span class="hud-label">LEVEL</span>
+          <span class="hud-value" id="hud-level">1/5</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">WAVE</span>
+          <span class="hud-value" id="hud-wave">1/1</span>
         </div>
         <div class="hud-item">
           <span class="hud-label">SCORE</span>
@@ -33,22 +37,45 @@
           <span class="hud-value shield-pct" id="hud-shield-text">100%</span>
         </div>
         <div class="hud-item">
-          <span class="hud-label">TORPEDOES</span>
+          <span class="hud-label">TORP</span>
           <span class="hud-value" id="hud-torpedoes">3</span>
         </div>
       </div>
-      <button id="sound-btn" class="lcars-pill-btn" aria-label="Toggle Sound">🔊 AUDIO</button>
+      <button id="pause-btn" class="lcars-pill-btn" aria-label="Pause Game">⏸️</button>
+      <button id="sound-btn" class="lcars-pill-btn" aria-label="Toggle Sound">🔊</button>
     </header>
 
     <!-- Main Game Canvas -->
     <div class="canvas-wrapper">
       <canvas id="gameCanvas" width="480" height="640"></canvas>
 
+      <!-- Boss Health HUD (Appears on Level 5 Boss) -->
+      <div id="boss-hud" class="boss-hud hidden">
+        <div class="boss-hud-title">⚠️ KLINGON DREADNOUGHT FLAGSHIP</div>
+        <div class="boss-bar-outer">
+          <div class="boss-bar-inner" id="boss-bar-inner"></div>
+        </div>
+      </div>
+
+      <!-- Mid-Level Wave Alert Banner -->
+      <div id="wave-banner" class="wave-banner hidden">
+        <span id="wave-banner-text">WAVE 2 INCOMING</span>
+      </div>
+
       <!-- 5-Second Tactical Countdown Overlay -->
       <div id="countdown-overlay" class="countdown-overlay hidden">
         <div class="countdown-sub">RED ALERT // PREPARING WEAPONS</div>
         <div class="countdown-number" id="countdown-number">5</div>
         <div class="countdown-status">ENGAGING IN SECONDS</div>
+      </div>
+
+      <!-- Tactical Pause Overlay -->
+      <div id="pause-overlay" class="overlay hidden">
+        <div class="overlay-card pause-card">
+          <h1>TACTICAL HOLD</h1>
+          <p id="pause-subtitle">SIMULATION PAUSED</p>
+          <button id="resume-btn" class="lcars-main-btn">RESUME MISSION</button>
+        </div>
       </div>
 
       <!-- Overlay for Start / Game Over / Wave Victory -->
