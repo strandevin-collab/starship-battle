@@ -466,3 +466,88 @@ html, body {
   color: var(--snw-red);
   border: 2px solid var(--snw-red);
 }
+
+/* Boss Health HUD (Strange New Worlds Command Red / White) */
+.boss-hud {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 420px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 2px solid var(--snw-red);
+  border-radius: 8px;
+  padding: 6px 12px;
+  text-align: center;
+  z-index: 15;
+  box-shadow: 0 0 15px var(--snw-red-glow);
+  transition: opacity 0.3s;
+}
+
+.boss-hud.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boss-hud-title {
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: var(--snw-red-bright);
+  margin-bottom: 4px;
+}
+
+.boss-bar-outer {
+  width: 100%;
+  height: 9px;
+  background: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--snw-red);
+}
+
+.boss-bar-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #ea580c, var(--snw-red-bright));
+  box-shadow: 0 0 8px var(--snw-red-glow);
+  transition: width 0.15s ease-out;
+}
+
+/* Wave Alert Banner */
+.wave-banner {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(220, 38, 38, 0.95);
+  color: var(--snw-white);
+  padding: 14px 28px;
+  border: 2px solid var(--snw-white);
+  border-radius: 8px;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.8);
+  z-index: 22;
+  pointer-events: none;
+  animation: bannerPulse 0.5s ease-in-out infinite alternate;
+  transition: opacity 0.3s;
+}
+
+.wave-banner.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes bannerPulse {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform: translate(-50%, -50%) scale(1.06); }
+}
+
+/* Pause Card */
+.pause-card {
+  max-width: 320px;
+  padding: 28px 20px;
+}
