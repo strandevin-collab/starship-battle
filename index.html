@@ -8,17 +8,16 @@
 </head>
 <body>
   <div id="game-container">
-    <!-- Star Trek LCARS-style Header HUD -->
+    <!-- Star Trek TNG LCARS-style Header HUD -->
     <header class="lcars-header">
-      <div class="lcars-bar lcars-accent-orange"></div>
-      <div class="lcars-bar lcars-accent-purple"></div>
+      <div class="lcars-elbow-top"></div>
       <div class="hud-stats">
         <div class="hud-item">
-          <span class="hud-label">LEVEL</span>
-          <span class="hud-value" id="hud-level">1/5</span>
+          <span class="hud-label" id="hud-level-label">SECTOR</span>
+          <span class="hud-value" id="hud-level">01/05</span>
         </div>
         <div class="hud-item">
-          <span class="hud-label">WAVE</span>
+          <span class="hud-label" id="hud-wave-label">WAVE</span>
           <span class="hud-value" id="hud-wave">1/1</span>
         </div>
         <div class="hud-item">
@@ -37,17 +36,25 @@
           <span class="hud-value shield-pct" id="hud-shield-text">100%</span>
         </div>
         <div class="hud-item">
-          <span class="hud-label">TORP</span>
-          <span class="hud-value" id="hud-torpedoes">3</span>
+          <span class="hud-label" id="hud-torp-label">TORP</span>
+          <span class="hud-value" id="hud-torpedoes">5</span>
         </div>
       </div>
-      <button id="pause-btn" class="lcars-pill-btn" aria-label="Pause Game">⏸️</button>
-      <button id="sound-btn" class="lcars-pill-btn" aria-label="Toggle Sound">🔊</button>
+      <div class="header-buttons">
+        <button id="pause-btn" class="lcars-pill-btn lcars-btn-ice" aria-label="Pause Game">⏸️</button>
+        <button id="sound-btn" class="lcars-pill-btn lcars-btn-amber" aria-label="Toggle Sound">🔊</button>
+      </div>
     </header>
 
-    <!-- Main Game Canvas -->
+    <!-- Top LCARS Game Mode Switcher -->
+    <nav class="lcars-mode-nav">
+      <button id="mode-defense-btn" class="mode-tab active" data-mode="defense">TACTICAL DEFENSE</button>
+      <button id="mode-warp-btn" class="mode-tab" data-mode="warp">WARP FLIGHT</button>
+    </nav>
+
+    <!-- Main Game Canvas (Expanded Flight Arena) -->
     <div class="canvas-wrapper">
-      <canvas id="gameCanvas" width="480" height="640"></canvas>
+      <canvas id="gameCanvas" width="500" height="660"></canvas>
 
       <!-- Boss Health HUD (Appears on Level 5 Boss) -->
       <div id="boss-hud" class="boss-hud hidden">
@@ -64,54 +71,166 @@
 
       <!-- 5-Second Tactical Countdown Overlay -->
       <div id="countdown-overlay" class="countdown-overlay hidden">
-        <div class="countdown-sub">RED ALERT // PREPARING WEAPONS</div>
+        <div class="countdown-sub">RED ALERT // TACTICAL LOCK</div>
         <div class="countdown-number" id="countdown-number">5</div>
-        <div class="countdown-status">ENGAGING IN SECONDS</div>
+        <div class="countdown-status" id="countdown-sector-name">SECTOR 01: BORDER PATROL</div>
       </div>
 
       <!-- Tactical Pause Overlay -->
       <div id="pause-overlay" class="overlay hidden">
         <div class="overlay-card pause-card">
+          <div class="lcars-card-bar"></div>
           <h1>TACTICAL HOLD</h1>
-          <p id="pause-subtitle">SIMULATION PAUSED</p>
-          <button id="resume-btn" class="lcars-main-btn">RESUME MISSION</button>
-        </div>
-      </div>
-
-      <!-- Overlay for Start / Game Over / Wave Victory -->
-      <div id="game-overlay" class="overlay">
-        <div class="overlay-card">
-          <div class="lcars-elbow"></div>
-          <h1 id="overlay-title">STARFLEET TACTICAL</h1>
-          <p id="overlay-subtitle">KLINGON ARMADA DETECTED IN SECTOR 001</p>
-          <div class="overlay-stats" id="overlay-stats"></div>
-          <button id="start-btn" class="lcars-main-btn">ENGAGE MISSION</button>
-          <div class="instructions-card">
-            <p><strong>Controls:</strong></p>
-            <p>📱 <strong>Mobile:</strong> Use the buttons below or drag your ship directly.</p>
-            <p>⌨️ <strong>Desktop:</strong> Left / Right arrow keys (or A / D), [Spacebar] to fire phasers, [T] to launch photon torpedo.</p>
-            <div class="mobile-qr-section">
-              <p>📷 <strong>Scan with Phone to Play:</strong></p>
-              <img src="qrcode.png" alt="Scan to play on phone" class="qr-image">
-              <p class="qr-sub">Or visit on phone: <code>http://192.168.4.141:8080</code></p>
+          <p id="pause-subtitle">SIMULATION SUSPENDED</p>
+          <div class="pause-actions">
+            <button id="resume-btn" class="lcars-main-btn">RESUME MISSION</button>
+            <div class="restart-btn-row">
+              <button id="pause-restart-level-btn" class="lcars-pill-btn lcars-btn-ice">RESTART LEVEL</button>
+              <button id="pause-restart-all-btn" class="lcars-pill-btn lcars-btn-amber">RESTART RUN</button>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- STEP 1: Main Menu & Sector Selection Overlay -->
+      <div id="game-overlay" class="overlay">
+        <div class="overlay-card menu-card">
+          <div class="lcars-card-bar"></div>
+          
+          <!-- Authentic TNG Communicator Badge (Solid Gold Delta on Silver Oval) -->
+          <div class="combadge-container" id="combadge-btn" role="button" aria-label="Tap Communicator Badge">
+            <div class="combadge" id="combadge-model">
+              <svg viewBox="0 0 100 125" class="combadge-svg">
+                <defs>
+                  <!-- Silver Oval Bevel & Brushed Metal -->
+                  <linearGradient id="tngSilverRim" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="30%" stop-color="#cbd5e1"/>
+                    <stop offset="70%" stop-color="#64748b"/>
+                    <stop offset="100%" stop-color="#334155"/>
+                  </linearGradient>
+                  <linearGradient id="tngSilverFace" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f8fafc"/>
+                    <stop offset="40%" stop-color="#e2e8f0"/>
+                    <stop offset="80%" stop-color="#94a3b8"/>
+                    <stop offset="100%" stop-color="#64748b"/>
+                  </linearGradient>
+
+                  <!-- Authentic TNG Two-Tone Gold Facets (No Hole/Cutout) -->
+                  <linearGradient id="tngGoldLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fef08a"/>
+                    <stop offset="45%" stop-color="#facc15"/>
+                    <stop offset="90%" stop-color="#d97706"/>
+                  </linearGradient>
+                  <linearGradient id="tngGoldRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fde047"/>
+                    <stop offset="45%" stop-color="#ca8a04"/>
+                    <stop offset="90%" stop-color="#854d0e"/>
+                  </linearGradient>
+                  <filter id="tngShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.65"/>
+                  </filter>
+                </defs>
+
+                <!-- 1. Brushed Silver Outer Oval Base -->
+                <ellipse cx="50" cy="62" rx="38" ry="52" fill="url(#tngSilverRim)" filter="url(#tngShadow)"/>
+                <ellipse cx="50" cy="62" rx="34" ry="48" fill="url(#tngSilverFace)"/>
+
+                <!-- 2. Authentic Solid Starfleet Delta with Central Crease (TNG Canon) -->
+                <!-- Left Wing of Delta -->
+                <path d="M 50 12 Q 52 48 24 96 Q 38 84 50 106 Z" fill="url(#tngGoldLeft)"/>
+                <!-- Right Wing of Delta -->
+                <path d="M 50 12 Q 52 48 76 96 Q 62 84 50 106 Z" fill="url(#tngGoldRight)"/>
+                <!-- Subtle Ridge Line Highlight -->
+                <line x1="50" y1="12" x2="50" y2="106" stroke="#fef9c3" stroke-width="0.8" opacity="0.8"/>
+              </svg>
+            </div>
+            <div class="combadge-label">COMMUNICATOR ACTIVE // TAP TO CHIRP</div>
+          </div>
+
+          <h1 id="overlay-title">STARFLEET TACTICAL</h1>
+          <p id="overlay-subtitle">TACTICAL INVASION DEFENSE SIMULATOR</p>
+
+          <!-- Mission / Sector Selector -->
+          <div class="sector-select-box">
+            <label for="sector-dropdown" class="sector-label">SELECT MISSION SECTOR:</label>
+            <select id="sector-dropdown" class="lcars-select">
+              <option value="1">SECTOR 01: BORDER PATROL (Deep Space)</option>
+              <option value="2">SECTOR 02: MUTARA NEBULA (Ion Storm)</option>
+              <option value="3">SECTOR 03: BADLANDS (Plasma Flares)</option>
+              <option value="4">SECTOR 04: ASTEROID BELT (Dense Debris)</option>
+              <option value="5">SECTOR 05: NEUTRAL ZONE (Flagship Dreadnought)</option>
+            </select>
+          </div>
+
+          <!-- Restart Controls for Game Over / Victory / Level Clear -->
+          <div id="game-restart-actions" class="game-restart-actions hidden">
+            <div class="restart-btn-row">
+              <button id="gameover-restart-level-btn" class="lcars-pill-btn lcars-btn-ice">RESTART LEVEL</button>
+              <button id="gameover-restart-all-btn" class="lcars-pill-btn lcars-btn-amber">RESTART RUN</button>
+            </div>
+          </div>
+
+          <!-- Step 1 Button: Choose Starship -->
+          <button id="goto-ship-select-btn" class="lcars-main-btn">
+            CHOOSE STARSHIP & PROCEED ➔
+          </button>
+
+          <div class="overlay-stats" id="overlay-stats"></div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Dedicated Ship Selection & Technical Readout Screen (Contains ENGAGE MISSION) -->
+      <div id="ship-modal" class="overlay hidden">
+        <div class="overlay-card ship-readout-card">
+          <div class="lcars-card-bar"></div>
+          
+          <div class="modal-header">
+            <h2>STARFLEET SHIP DIAGNOSTIC</h2>
+            <button id="back-to-sectors-btn" class="lcars-pill-btn lcars-btn-ice">◀ BACK</button>
+          </div>
+
+          <!-- Ship Switch Tabs -->
+          <div class="ship-tabs">
+            <button id="tab-enterprise" class="ship-tab active" data-ship="enterprise">USS ENTERPRISE</button>
+            <button id="tab-defiant" class="ship-tab" data-ship="defiant">USS DEFIANT</button>
+          </div>
+
+          <!-- Ship Silhouette Preview -->
+          <div class="ship-preview-box">
+            <canvas id="shipPreviewCanvas" width="180" height="110"></canvas>
+          </div>
+
+          <!-- Technical Readout (Canon Lore) -->
+          <div class="readout-specs" id="readout-specs-content"></div>
+
+          <!-- The Final ENGAGE MISSION Button (Moved here as requested!) -->
+          <button id="engage-mission-btn" class="lcars-main-btn btn-engage-mission">
+            ⚡ ENGAGE MISSION ⚡
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Mobile-Friendly Tactical Touch Controls -->
-    <footer class="tactical-console">
-      <div class="nav-controls">
-        <button id="btn-left" class="console-btn btn-nav" aria-label="Move Left">◀</button>
-        <button id="btn-right" class="console-btn btn-nav" aria-label="Move Right">▶</button>
+    <!-- Mobile-Friendly Tactical Console with Virtual Thumbstick Joystick -->
+    <footer class="tactical-console" id="tactical-console">
+      <!-- On-Screen Virtual Flight Joystick -->
+      <div class="joystick-wrapper" id="joystick-wrapper">
+        <div class="joystick-base" id="joystick-base">
+          <div class="joystick-crosshair-h"></div>
+          <div class="joystick-crosshair-v"></div>
+          <div class="joystick-stick" id="joystick-stick"></div>
+        </div>
+        <span class="joystick-label">FLIGHT STICK</span>
       </div>
+
+      <!-- Weapon Controls (Two-Thumb Mobile Setup) -->
       <div class="weapon-controls">
-        <button id="btn-torpedo" class="console-btn btn-torpedo" aria-label="Launch Torpedo">
-          <span>TORPEDO</span>
-          <small id="btn-torpedo-count">(3)</small>
+        <button id="btn-torpedo" class="console-btn btn-torpedo btn-lcars-amber" aria-label="Launch Torpedo">
+          <span id="btn-torpedo-label">TORPEDO</span>
+          <small id="btn-torpedo-count">(5)</small>
         </button>
-        <button id="btn-fire" class="console-btn btn-fire" aria-label="Fire Phasers">
+        <button id="btn-fire" class="console-btn btn-fire btn-lcars-gold" aria-label="Fire Phasers">
           <span>FIRE PHASERS</span>
         </button>
       </div>
