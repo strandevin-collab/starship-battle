@@ -1,17 +1,16 @@
-/* Star Trek: Strange New Worlds (SNW) Aesthetic — Ceramic White & Command Red */
+/* Star Trek: The Next Generation (TNG) Modern LCARS Tactical Interface */
 :root {
-  --bg-deep: #050811;
-  --snw-white: #ffffff;
-  --snw-offwhite: #f8fafc;
-  --snw-panel: #f1f5f9;
-  --snw-red: #dc2626;
-  --snw-red-bright: #ef4444;
-  --snw-red-glow: rgba(239, 68, 68, 0.45);
-  --snw-border-red: #b91c1c;
-  --snw-dark-bezel: #090d16;
-  --snw-silver: #94a3b8;
-  --snw-blue: #0284c7;
-  --snw-blue-glow: #38bdf8;
+  --bg-deep: #02040a;
+  --lcars-gold: #ffaa00;
+  --lcars-amber: #ff9900;
+  --lcars-orange: #ff6622;
+  --lcars-lilac: #cc99cc;
+  --lcars-lilac-dark: #865586;
+  --lcars-ice: #99ccff;
+  --lcars-ice-dark: #38bdf8;
+  --lcars-red: #ef4444;
+  --lcars-panel-bg: rgba(11, 15, 25, 0.96);
+  --lcars-border-radius: 16px;
   --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
 
@@ -29,7 +28,7 @@ html, body {
   height: 100%;
   height: 100dvh;
   background-color: var(--bg-deep);
-  color: #0f172a;
+  color: #f8fafc;
   font-family: var(--font-family);
   overflow: hidden;
   display: flex;
@@ -37,45 +36,78 @@ html, body {
   align-items: center;
 }
 
-/* Master App Container */
+/* Master Container */
 #game-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   height: 100%;
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: #030712;
+  background: #000000;
   position: relative;
-  border-left: 3px solid var(--snw-red);
-  border-right: 3px solid var(--snw-red);
-  box-shadow: 0 0 35px rgba(220, 38, 38, 0.35);
+  border-left: 3px solid var(--lcars-amber);
+  border-right: 3px solid var(--lcars-amber);
+  box-shadow: 0 0 35px rgba(255, 153, 0, 0.3);
 }
 
-/* Header & SNW Ceramic White / Command Red HUD */
+/* TNG LCARS Header */
 .lcars-header {
-  padding: 8px 12px;
-  background: var(--snw-white);
-  border-bottom: 3px solid var(--snw-red);
+  padding: 6px 12px;
+  background: #0b0f19;
+  border-bottom: 3px solid var(--lcars-amber);
   display: flex;
   align-items: center;
   gap: 8px;
   z-index: 10;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
-.lcars-bar {
-  width: 5px;
+/* LCARS Top Game Mode Switcher */
+.lcars-mode-nav {
+  display: flex;
+  background: #070b14;
+  border-bottom: 2px solid var(--lcars-lilac);
+  padding: 4px 10px;
+  gap: 10px;
+  z-index: 10;
+  justify-content: center;
+}
+
+.mode-tab {
+  flex: 1;
+  max-width: 195px;
+  padding: 5px 12px;
+  border: 1px solid var(--lcars-lilac-dark);
+  background: rgba(15, 23, 42, 0.85);
+  color: #94a3b8;
+  font-size: 0.70rem;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.mode-tab:hover {
+  color: #ffffff;
+  border-color: var(--lcars-ice);
+}
+
+.mode-tab.active {
+  background: linear-gradient(90deg, var(--lcars-amber), var(--lcars-gold));
+  color: #030712;
+  border-color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 170, 0, 0.45);
+}
+
+.lcars-elbow-top {
+  width: 12px;
   height: 38px;
-  border-radius: 3px;
-}
-
-.lcars-accent-orange {
-  background-color: var(--snw-red);
-}
-
-.lcars-accent-purple {
-  background-color: #0f172a;
+  background: var(--lcars-amber);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .hud-stats {
@@ -93,79 +125,93 @@ html, body {
 }
 
 .hud-label {
-  font-size: 0.58rem;
+  font-size: 0.56rem;
   letter-spacing: 1.2px;
-  color: var(--snw-red);
-  font-weight: 900;
+  color: var(--lcars-gold);
+  font-weight: 800;
   text-transform: uppercase;
 }
 
 .hud-value {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 800;
   font-family: 'Courier New', Courier, monospace;
-  color: #0f172a;
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
 }
 
 .lives-val {
-  color: var(--snw-red);
-  font-size: 1.05rem;
+  color: var(--lcars-ice);
+  font-size: 1.02rem;
   font-weight: 900;
 }
 
 .shield-bar-outer {
-  width: 54px;
+  width: 50px;
   height: 8px;
-  background: #e2e8f0;
+  background: #1e293b;
   border-radius: 4px;
   overflow: hidden;
-  border: 1px solid var(--snw-blue);
+  border: 1px solid var(--lcars-ice-dark);
   margin-top: 2px;
 }
 
 .shield-bar-inner {
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #0284c7, var(--snw-blue-glow));
-  box-shadow: 0 0 6px var(--snw-blue-glow);
+  background: linear-gradient(90deg, #0284c7, var(--lcars-ice));
+  box-shadow: 0 0 6px var(--lcars-ice);
   transition: width 0.25s ease-out, background 0.3s;
 }
 
 .shield-pct {
-  font-size: 0.68rem;
-  color: var(--snw-blue);
+  font-size: 0.66rem;
+  color: var(--lcars-ice);
   font-weight: 700;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 5px;
+}
+
 .lcars-pill-btn {
-  background: #0f172a;
-  color: var(--snw-white);
-  border: 1px solid var(--snw-red);
-  font-size: 0.62rem;
+  border: none;
+  font-size: 0.72rem;
   font-weight: 800;
-  padding: 6px 10px;
-  border-radius: 12px;
+  padding: 6px 9px;
+  border-radius: 14px;
   cursor: pointer;
   letter-spacing: 0.5px;
   transition: transform 0.1s, opacity 0.2s;
 }
 
-.lcars-pill-btn:active {
-  transform: scale(0.95);
-  background: var(--snw-red);
+.lcars-btn-ice {
+  background: var(--lcars-ice);
+  color: #030712;
 }
 
-/* Viewscreen (Canvas Area) */
+.lcars-btn-amber {
+  background: var(--lcars-amber);
+  color: #030712;
+}
+
+.lcars-pill-btn:active {
+  transform: scale(0.94);
+  opacity: 0.85;
+}
+
+/* Canvas Wrapper */
 .canvas-wrapper {
   flex: 1;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #02040a;
+  background: #000000;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 2px solid var(--snw-red);
+  border-top: 1px solid rgba(255, 153, 0, 0.2);
+  border-bottom: 3px solid var(--lcars-amber);
 }
 
 #gameCanvas {
@@ -175,299 +221,7 @@ html, body {
   display: block;
 }
 
-/* 5-Second Tactical Countdown Overlay */
-.countdown-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(3, 7, 18, 0.75);
-  backdrop-filter: blur(5px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 25;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.countdown-overlay.hidden {
-  opacity: 0;
-}
-
-.countdown-sub {
-  color: var(--snw-red-bright);
-  font-size: 0.85rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  text-shadow: 0 0 10px var(--snw-red-glow);
-}
-
-.countdown-number {
-  font-size: 6.5rem;
-  font-weight: 900;
-  color: var(--snw-white);
-  font-family: 'Courier New', Courier, monospace;
-  text-shadow: 0 0 25px var(--snw-red-bright), 0 0 50px var(--snw-red);
-  line-height: 1;
-  animation: pulseNumber 1s ease-in-out infinite;
-}
-
-@keyframes pulseNumber {
-  0% { transform: scale(1.15); opacity: 1; }
-  50% { transform: scale(0.95); opacity: 0.9; }
-  100% { transform: scale(1.15); opacity: 1; }
-}
-
-.countdown-status {
-  margin-top: 14px;
-  font-size: 0.78rem;
-  letter-spacing: 2px;
-  color: #cbd5e1;
-  font-weight: 700;
-  border-top: 1px solid var(--snw-red);
-  padding-top: 8px;
-}
-
-/* Tactical Overlay (Start / Game Over / Waves) */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(3, 7, 18, 0.9);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 20;
-  padding: 18px;
-  transition: opacity 0.3s ease;
-}
-
-.overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.overlay-card {
-  background: var(--snw-white);
-  color: #0f172a;
-  border: 3px solid var(--snw-red);
-  border-radius: 14px;
-  padding: 22px;
-  text-align: center;
-  width: 100%;
-  max-width: 390px;
-  box-shadow: 0 0 30px var(--snw-red-glow);
-}
-
-.overlay-card h1 {
-  color: var(--snw-red);
-  font-size: 1.45rem;
-  font-weight: 900;
-  letter-spacing: 2px;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-}
-
-.overlay-card p#overlay-subtitle {
-  color: #475569;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 1.2px;
-  margin-bottom: 14px;
-}
-
-.overlay-stats {
-  margin-bottom: 14px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1.05rem;
-  color: var(--snw-red);
-  font-weight: 800;
-}
-
-.lcars-main-btn {
-  background: linear-gradient(135deg, var(--snw-red), #b91c1c);
-  color: var(--snw-white);
-  border: 2px solid var(--snw-white);
-  font-size: 1.05rem;
-  font-weight: 900;
-  padding: 13px 26px;
-  border-radius: 24px;
-  cursor: pointer;
-  letter-spacing: 1.5px;
-  box-shadow: 0 0 15px var(--snw-red-glow);
-  transition: transform 0.1s, box-shadow 0.2s;
-  width: 100%;
-}
-
-.lcars-main-btn:active {
-  transform: scale(0.97);
-  background: #991b1b;
-}
-
-.instructions-card {
-  margin-top: 14px;
-  font-size: 0.74rem;
-  color: #334155;
-  line-height: 1.5;
-  text-align: left;
-  border-top: 2px solid #e2e8f0;
-  padding-top: 10px;
-}
-
-.instructions-card strong {
-  color: var(--snw-red);
-}
-
-.mobile-qr-section {
-  margin-top: 10px;
-  padding: 8px;
-  background: #f8fafc;
-  border: 2px dashed var(--snw-red);
-  border-radius: 8px;
-  text-align: center;
-}
-
-.qr-image {
-  width: 130px;
-  height: 130px;
-  border-radius: 6px;
-  border: 2px solid #0f172a;
-  margin: 6px auto;
-  display: block;
-}
-
-.qr-sub {
-  font-size: 0.7rem;
-  color: #475569;
-}
-
-.qr-sub code {
-  color: var(--snw-red);
-  background: #e2e8f0;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-weight: bold;
-}
-
-/* Tactical Console (Strange New Worlds: White & Red Mobile Buttons) */
-.tactical-console {
-  background: var(--snw-white);
-  border-top: 3px solid var(--snw-red);
-  padding: 12px 14px 16px 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  z-index: 10;
-  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.nav-controls {
-  display: flex;
-  gap: 10px;
-}
-
-.weapon-controls {
-  display: flex;
-  flex: 1;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.console-btn {
-  border: none;
-  cursor: pointer;
-  font-weight: 900;
-  touch-action: manipulation;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.08s, filter 0.08s;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-
-.console-btn:active {
-  transform: translateY(2px) scale(0.96);
-}
-
-/* Crisp White with Red Borders and Arrows */
-.btn-nav {
-  width: 58px;
-  height: 54px;
-  border-radius: 12px;
-  background: var(--snw-white);
-  color: var(--snw-red);
-  font-size: 1.6rem;
-  border: 2.5px solid var(--snw-red);
-}
-
-.btn-nav:active {
-  background: var(--snw-red);
-  color: var(--snw-white);
-}
-
-/* White & Red Torpedo Button */
-.btn-torpedo {
-  padding: 6px 12px;
-  height: 54px;
-  border-radius: 12px;
-  background: var(--snw-white);
-  color: var(--snw-red);
-  border: 2.5px solid var(--snw-red);
-  font-size: 0.72rem;
-  letter-spacing: 0.5px;
-}
-
-.btn-torpedo span {
-  font-weight: 900;
-}
-
-.btn-torpedo small {
-  font-size: 0.68rem;
-  color: #b91c1c;
-  font-weight: 800;
-}
-
-.btn-torpedo:active {
-  background: var(--snw-red);
-  color: var(--snw-white);
-}
-
-.btn-torpedo:active small {
-  color: #fee2e2;
-}
-
-/* Bold Command Red Phaser Trigger with White Text */
-.btn-fire {
-  flex: 1;
-  max-width: 175px;
-  height: 54px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--snw-red), #b91c1c);
-  color: var(--snw-white);
-  font-size: 0.88rem;
-  letter-spacing: 1.2px;
-  border: 2px solid var(--snw-white);
-  box-shadow: 0 0 12px var(--snw-red-glow);
-}
-
-.btn-fire:active {
-  background: var(--snw-white);
-  color: var(--snw-red);
-  border: 2px solid var(--snw-red);
-}
-
-/* Boss Health HUD (Strange New Worlds Command Red / White) */
+/* Boss Health HUD */
 .boss-hud {
   position: absolute;
   top: 8px;
@@ -475,13 +229,13 @@ html, body {
   transform: translateX(-50%);
   width: 90%;
   max-width: 420px;
-  background: rgba(15, 23, 42, 0.92);
-  border: 2px solid var(--snw-red);
-  border-radius: 8px;
-  padding: 6px 12px;
+  background: rgba(11, 15, 25, 0.94);
+  border: 2px solid var(--lcars-orange);
+  border-radius: 12px;
+  padding: 6px 14px;
   text-align: center;
   z-index: 15;
-  box-shadow: 0 0 15px var(--snw-red-glow);
+  box-shadow: 0 0 15px rgba(255, 102, 34, 0.4);
   transition: opacity 0.3s;
 }
 
@@ -494,7 +248,7 @@ html, body {
   font-size: 0.68rem;
   font-weight: 900;
   letter-spacing: 1.5px;
-  color: var(--snw-red-bright);
+  color: var(--lcars-gold);
   margin-bottom: 4px;
 }
 
@@ -504,32 +258,31 @@ html, body {
   background: #1e293b;
   border-radius: 4px;
   overflow: hidden;
-  border: 1px solid var(--snw-red);
+  border: 1px solid var(--lcars-orange);
 }
 
 .boss-bar-inner {
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #ea580c, var(--snw-red-bright));
-  box-shadow: 0 0 8px var(--snw-red-glow);
+  background: linear-gradient(90deg, #ea580c, var(--lcars-gold));
+  box-shadow: 0 0 8px var(--lcars-gold);
   transition: width 0.15s ease-out;
 }
 
 /* Wave Alert Banner */
 .wave-banner {
   position: absolute;
-  top: 38%;
+  top: 36%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(220, 38, 38, 0.95);
-  color: var(--snw-white);
-  padding: 14px 28px;
-  border: 2px solid var(--snw-white);
-  border-radius: 8px;
+  background: var(--lcars-amber);
+  color: #030712;
+  padding: 12px 26px;
+  border-radius: 20px;
   font-weight: 900;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   letter-spacing: 2px;
-  box-shadow: 0 0 30px rgba(220, 38, 38, 0.8);
+  box-shadow: 0 0 30px rgba(255, 153, 0, 0.8);
   z-index: 22;
   pointer-events: none;
   animation: bannerPulse 0.5s ease-in-out infinite alternate;
@@ -546,8 +299,590 @@ html, body {
   to { transform: translate(-50%, -50%) scale(1.06); }
 }
 
-/* Pause Card */
+/* 5-Second Countdown */
+.countdown-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 4, 10, 0.88);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 25;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.countdown-overlay.hidden {
+  opacity: 0;
+}
+
+.countdown-sub {
+  color: var(--lcars-gold);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+}
+
+.countdown-number {
+  font-size: 6.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 0 0 25px var(--lcars-gold), 0 0 50px var(--lcars-amber);
+  line-height: 1;
+  animation: pulseNumber 1s ease-in-out infinite;
+}
+
+@keyframes pulseNumber {
+  0% { transform: scale(1.12); opacity: 1; }
+  50% { transform: scale(0.95); opacity: 0.9; }
+  100% { transform: scale(1.12); opacity: 1; }
+}
+
+.countdown-status {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  color: var(--lcars-lilac);
+  font-weight: 700;
+  border-top: 2px solid var(--lcars-amber);
+  padding-top: 8px;
+}
+
+/* Overlays (Start / Pause / Victory / Game Over / Ship Modal) */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 4, 10, 0.94);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  padding: 14px;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay-card {
+  background: var(--lcars-panel-bg);
+  color: #f8fafc;
+  border: 2px solid var(--lcars-amber);
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 30px rgba(255, 153, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-card {
+  max-height: 94dvh;
+  overflow-y: auto;
+}
+
+.lcars-card-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--lcars-amber), var(--lcars-lilac), var(--lcars-ice));
+}
+
+/* Authentic Solid TNG Communicator Badge */
+.combadge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 4px auto 10px auto;
+  cursor: pointer;
+  perspective: 800px;
+  width: 105px;
+}
+
+.combadge {
+  width: 72px;
+  height: 90px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  transition: transform 0.15s, filter 0.2s;
+}
+
+.combadge:hover {
+  filter: drop-shadow(0 0 14px rgba(255, 204, 51, 0.8));
+}
+
+.combadge-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.combadge.spinning {
+  animation: badgeSpin3D 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes badgeSpin3D {
+  0% { transform: rotateY(0deg) scale(1); }
+  50% { transform: rotateY(180deg) scale(1.18); }
+  100% { transform: rotateY(360deg) scale(1); }
+}
+
+.combadge-label {
+  font-size: 0.56rem;
+  letter-spacing: 1.2px;
+  color: var(--lcars-gold);
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.overlay-card h1 {
+  color: var(--lcars-gold);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.overlay-card p#overlay-subtitle {
+  color: var(--lcars-lilac);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+/* Mission / Sector Selector Box */
+.sector-select-box {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid var(--lcars-lilac);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.sector-label {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--lcars-gold);
+  margin-bottom: 6px;
+}
+
+.lcars-select {
+  width: 100%;
+  background: #0f172a;
+  color: #ffffff;
+  border: 1.5px solid var(--lcars-amber);
+  border-radius: 8px;
+  padding: 9px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+.lcars-select option {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+/* Primary Main Buttons */
+.lcars-main-btn {
+  background: linear-gradient(135deg, var(--lcars-amber), #ea580c);
+  color: #030712;
+  border: none;
+  font-size: 1rem;
+  font-weight: 900;
+  padding: 13px 24px;
+  border-radius: 20px;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  box-shadow: 0 0 16px rgba(255, 153, 0, 0.45);
+  transition: transform 0.1s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.lcars-main-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.7);
+}
+
+.btn-engage-mission {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+  font-size: 1.1rem;
+  margin-top: 8px;
+}
+
+.btn-engage-mission:active {
+  background: #047857;
+}
+
+.overlay-stats {
+  margin-top: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.98rem;
+  color: var(--lcars-gold);
+  font-weight: 800;
+}
+
 .pause-card {
   max-width: 320px;
   padding: 28px 20px;
+}
+
+.pause-actions, .game-restart-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+.game-restart-actions.hidden {
+  display: none !important;
+}
+
+.restart-btn-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.lcars-pill-btn {
+  padding: 10px 12px;
+  border-radius: 18px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: transform 0.1s, filter 0.15s, box-shadow 0.15s;
+  text-align: center;
+  flex: 1;
+  text-transform: uppercase;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.lcars-pill-btn:active {
+  transform: scale(0.96);
+  filter: brightness(1.2);
+}
+
+.lcars-btn-ice {
+  background: linear-gradient(135deg, var(--lcars-ice), #0284c7);
+  color: #030712;
+}
+
+.lcars-btn-amber {
+  background: linear-gradient(135deg, var(--lcars-amber), #ea580c);
+  color: #030712;
+}
+
+.lcars-btn-red {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #ffffff;
+}
+
+/* Dedicated Ship Readout Modal */
+.ship-readout-card {
+  max-height: 94dvh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.modal-header h2 {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--lcars-gold);
+  letter-spacing: 1px;
+}
+
+.ship-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ship-tab {
+  flex: 1;
+  background: #1e293b;
+  border: 1.5px solid #475569;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ship-tab.active {
+  background: rgba(255, 153, 0, 0.15);
+  border-color: var(--lcars-amber);
+  color: var(--lcars-gold);
+  box-shadow: 0 0 10px rgba(255, 153, 0, 0.3);
+}
+
+.ship-preview-box {
+  background: #020617;
+  border: 1px solid var(--lcars-lilac);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  margin-bottom: 10px;
+}
+
+#shipPreviewCanvas {
+  display: block;
+}
+
+.readout-specs {
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 10px;
+  border: 1px solid #334155;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #334155;
+  padding: 3px 0;
+}
+
+.spec-label {
+  color: var(--lcars-lilac);
+  font-weight: 700;
+}
+
+.spec-val {
+  color: #ffffff;
+  font-weight: 800;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.spec-perk-box {
+  margin-top: 6px;
+  padding: 6px;
+  background: rgba(56, 189, 248, 0.1);
+  border-left: 3px solid var(--lcars-ice);
+  border-radius: 4px;
+}
+
+.spec-perk-title {
+  color: var(--lcars-ice);
+  font-weight: 800;
+  font-size: 0.68rem;
+}
+
+.spec-perk-desc {
+  color: #cbd5e1;
+  font-size: 0.68rem;
+}
+
+/* Tactical Console (Virtual Joystick + Weapons) */
+.tactical-console {
+  background: #0b0f19;
+  border-top: 3px solid var(--lcars-amber);
+  padding: 8px 14px 14px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  z-index: 10;
+  position: relative;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* On-Screen Virtual Joystick */
+.joystick-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+.joystick-base {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 2px solid var(--lcars-lilac);
+  box-shadow: inset 0 0 12px rgba(204, 153, 204, 0.3), 0 0 10px rgba(204, 153, 204, 0.2);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+}
+
+.joystick-base:active {
+  cursor: grabbing;
+}
+
+/* Subtle Tactical Crosshairs in Joystick Base */
+.joystick-crosshair-h {
+  position: absolute;
+  width: 70%;
+  height: 1px;
+  background: rgba(204, 153, 204, 0.25);
+  pointer-events: none;
+}
+
+.joystick-crosshair-v {
+  position: absolute;
+  height: 70%;
+  width: 1px;
+  background: rgba(204, 153, 204, 0.25);
+  pointer-events: none;
+}
+
+/* Movable Joystick Stick / Knob */
+.joystick-stick {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, var(--lcars-lilac) 50%, var(--lcars-lilac-dark) 100%);
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 12px var(--lcars-lilac);
+  position: absolute;
+  pointer-events: none;
+  transition: transform 0.05s ease-out;
+}
+
+.joystick-label {
+  font-size: 0.54rem;
+  letter-spacing: 1.2px;
+  font-weight: 800;
+  color: var(--lcars-lilac);
+  margin-top: 3px;
+}
+
+/* Weapon Controls (Right Side) */
+.weapon-controls {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.console-btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+  touch-action: manipulation;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s, filter 0.08s;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.console-btn:active {
+  transform: translateY(2px) scale(0.96);
+  filter: brightness(1.2);
+}
+
+/* Torpedo Button */
+.btn-lcars-amber {
+  padding: 6px 12px;
+  height: 64px;
+  border-radius: var(--lcars-border-radius);
+  background: var(--lcars-amber);
+  color: #030712;
+  border: 2px solid #fed7aa;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-lcars-amber span {
+  font-weight: 900;
+}
+
+.btn-lcars-amber small {
+  font-size: 0.68rem;
+  color: #451a03;
+  font-weight: 800;
+}
+
+.btn-lcars-amber:active {
+  background: #ffffff;
+  color: var(--lcars-amber);
+}
+
+/* Phaser Beam Trigger */
+.btn-lcars-gold {
+  flex: 1;
+  max-width: 175px;
+  height: 64px;
+  border-radius: var(--lcars-border-radius);
+  background: linear-gradient(135deg, var(--lcars-gold), #ea580c);
+  color: #030712;
+  font-size: 0.88rem;
+  letter-spacing: 1.2px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 14px rgba(255, 170, 0, 0.4);
+}
+
+.btn-lcars-gold:active {
+  background: #ffffff;
+  color: #ea580c;
+}
+
+.btn-lcars-gold.overheated {
+  background: linear-gradient(135deg, #ef4444, #7f1d1d) !important;
+  color: #ffffff !important;
+  border-color: #fca5a5 !important;
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.75) !important;
+  animation: overheatPulse 0.4s infinite alternate;
+}
+
+@keyframes overheatPulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(0.97); filter: brightness(1.25); }
 }
